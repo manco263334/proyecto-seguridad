@@ -1,0 +1,90 @@
+import type { Repository, Error, Success, ReturnType, PrismaDelegate, GetByFieldDelimiters } from "../types/types.d.ts";
+import type { PrismaClient } from "../generated/prisma/client.ts";
+
+class BaseRepository<T> implements Repository<T> {
+    protected delegate: PrismaDelegate;
+
+    constructor(delegate: PrismaDelegate) {
+        this.delegate = delegate;
+        
+        this.create = this.create.bind(this);
+        this.getAll = this.getAll.bind(this);
+        this.getById = this.getById.bind(this);
+        this.getByField = this.getByField.bind(this);
+        this.deleteById = this.deleteById.bind(this);
+        this.updateById = this.updateById.bind(this);
+    }
+
+    async create(data: T): Promise<ReturnType<T>> {
+        try {
+            const result = await this.delegate.create({ data });
+            return { data: result, success: true } as Success<T>;
+        } catch (error) {
+            return { error } as Error<T>;
+        }
+    }
+
+    async getAll(): Promise<ReturnType<Array<T>>> {
+        try {
+            const results = await this.delegate.findMany();
+            return { data: results, success: true } as Success<Array<T>>;
+        } catch (error) {
+            return { error } as Error<Array<T>>;
+        }
+    }
+
+    async getById(id: number): Promise<ReturnType<Nullable<T>>> {
+        try {
+            const result = await this.delegate.findFirstOrThrow({ where: { id } });
+            return { data: result, success: true } as Success<T>;
+        } catch (error) {
+            return { error } as Error<T>;
+        }
+    }
+
+    async getByField({ fieldName, fieldFinder, limit = 10 }: GetByFieldDelimiters): Promise<ReturnType<Array<T>>> {
+        try {
+            const results = await this.delegate.findMany({ 
+                where: { [fieldName]: fieldFinder },
+                take: limit
+            });
+            return { data: results, success: true } as Success<Array<T>>;
+        } catch (error) {
+            return { error } as Error<Array<T>>;
+        }
+    }
+
+    async deleteById(id: number): Promise<ReturnType<Nullable<T>>> {
+        try {
+            await this.delegate.delete({ where: { id } });
+            return { success: true } as Success<undefined>;
+        } catch (error) {
+            return { error } as Error<T>;
+        }
+    }
+
+    async updateById(id: number, data: PartialOrComplete<T>): Promise<ReturnType<PartialOrComplete<T>>> {
+        try {
+            const result = await this.delegate.update({ 
+                where: { id },
+                data
+            });
+            return { data: result, success: true } as Success<T>;
+        } catch (error) {
+            return { error } as Error<T>;
+        }
+    }
+}
+
+export default class FactoryRepository {
+    private prisma: PrismaClient;
+
+    constructor(prisma: PrismaClient) {
+        this.prisma = prisma;
+    }
+
+    // Método genérico para obtener cualquier repositorio estándar
+    getRepository<T>(modelName: keyof PrismaClient): BaseRepository<T> {
+        return new BaseRepository<T>(this.prisma[modelName] as PrismaDelegate);
+    }
+}
