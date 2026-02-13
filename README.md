@@ -72,3 +72,29 @@ Finalmente, arranca la aplicación en modo de desarrollo:
 ```bash
 npm run dev
 ```
+
+### 5. Corroborar el funcionamiento
+Para asegurar que la api esté funcionando en tu navegador busca la siguiente dirección URL:
+```bash
+http://localhost:[PORT]:/
+```
+
+O si estás usando Postman llama a la siguiente URL con el método GET:
+```bash
+http://localhost:[PORT]:/
+```
+
+Si todo sale bien, la apu debe devolver el siguiente código html:
+```html
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+</style>
+<div style="font-family: sans-serif; text-align: center; min-width: 100vw; min-height: 100vh; display: flex; justify-content: center; align-items: center; background-color:rgb(240, 186, 77); flex-direction: column;">
+    <h1 style="color: green; font-size: 48px;">✅ API is <span style="color: #007bff;">RUNNING</span></h1>
+    <p style="font-size: 24px;">Everything looks good 🚀</p>
+</div>
+```
