@@ -40,7 +40,7 @@ Para que el proyecto funcione correctamente, crea un archivo .env en la raíz de
 | *PORT* | Puerto de escucha del servidor (por defecto 3000). |
 | *NODE_ENV* | Entorno de ejecución (development o production). |
 
-> Los campos marcados con asterisco (*) son estrictamente obligatorios para el arranque.*
+> Los campos marcados con asterisco (*) son estrictamente obligatorios para el arranque.
 
 
 ## 🛠️ Instalación y Configuración
