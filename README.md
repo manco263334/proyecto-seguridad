@@ -40,7 +40,7 @@ Para que el proyecto funcione correctamente, crea un archivo .env en la raíz de
 | *PORT* | Puerto de escucha del servidor (por defecto 3000). |
 | *NODE_ENV* | Entorno de ejecución (development o production). |
 
-> Los campos marcados con asterisco () son estrictamente obligatorios para el arranque.*
+> Los campos marcados con asterisco (*) son estrictamente obligatorios para el arranque.*
 
 
 ## 🛠️ Instalación y Configuración
@@ -49,26 +49,26 @@ Sigue estos pasos para poner en marcha el entorno de desarrollo localmente:
 
 ### 1. Instalar dependencias
 Primero, descarga todos los paquetes necesarios definidos en el package.json:
-bash
+```bash
 npm i
+```
 Nota: debes tener un aversión de Node.js 20.19+, 22.12+, 24.0+ en adelante.
 
 
 ### 2. Configurar la base de datos
 Ejecuta las migraciones para crear las tablas en SQLite según el esquema de Prisma:
-bash
+```bash
 npx prisma migrate dev
-
+```
 
 ### 3. Generar el cliente de Prisma
 Genera el cliente tipado para poder interactuar con la base de datos desde TypeScript:
-bash
+```bash
 npx prisma generate
-
+```
 
 ### 4. Iniciar el servidor
 Finalmente, arranca la aplicación en modo de desarrollo:
-bash
+```bash
 npm run dev
-
-
+```
