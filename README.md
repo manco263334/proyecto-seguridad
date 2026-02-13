@@ -84,7 +84,7 @@ O si estás usando Postman llama a la siguiente URL con el método GET:
 http://localhost:[PORT]:/
 ```
 
-Si todo sale bien, la apu debe devolver el siguiente código html:
+Si todo sale bien, la api debe devolver el siguiente código html:
 ```html
 <style>
     * {
