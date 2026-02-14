@@ -27,7 +27,6 @@ El proyecto utiliza un conjunto de herramientas especializadas para garantizar l
 | *Dotenv* | Gestión de variables de entorno. |
 
 ---
-Nota
 ## 📄 Variables de Entorno
 
 Para que el proyecto funcione correctamente, crea un archivo .env en la raíz del directorio y configura las siguientes variables:
@@ -52,7 +51,7 @@ Primero, descarga todos los paquetes necesarios definidos en el package.json:
 ```bash
 npm i
 ```
-Nota: debes tener un aversión de Node.js 20.19+, 22.12+, 24.0+ en adelante.
+Nota: debes tener una versión de Node.js 24.0+ en adelante.
 
 
 ### 2. Configurar la base de datos
@@ -74,15 +73,12 @@ npm run dev
 ```
 
 ### 5. Corroborar el funcionamiento
-Para asegurar que la api esté funcionando en tu navegador busca la siguiente dirección URL:
+Para asegurar que la api esté funcionando en tu navegador web o en Postman (usando el método *GET*)busca la siguiente dirección URL:
 ```bash
 http://localhost:[PORT]:/
 ```
 
-O si estás usando Postman llama a la siguiente URL con el método GET:
-```bash
-http://localhost:[PORT]:/
-```
+Donde *[PORT]* es el mismo valor difinido en la variable de entorno
 
 Si todo sale bien, la api debe devolver el siguiente código html:
 ```html
