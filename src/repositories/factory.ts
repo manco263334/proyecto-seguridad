@@ -1,4 +1,4 @@
-import type { Repository, Error, Success, ReturnType, PrismaDelegate, GetByFieldDelimiters } from "../types/types.d.ts";
+import type { Repository, Error, Success, ReturnType, PrismaDelegate, GetByFieldDelimiters, GetAllDelimiters } from "../types/types.d.ts";
 import type { PrismaClient } from "../generated/prisma/client.ts";
 
 class BaseRepository<T> implements Repository<T> {
@@ -6,7 +6,7 @@ class BaseRepository<T> implements Repository<T> {
 
     constructor(delegate: PrismaDelegate) {
         this.delegate = delegate;
-        
+
         this.create = this.create.bind(this);
         this.getAll = this.getAll.bind(this);
         this.getById = this.getById.bind(this);
@@ -24,18 +24,30 @@ class BaseRepository<T> implements Repository<T> {
         }
     }
 
-    async getAll(): Promise<ReturnType<Array<T>>> {
+    getPage = ({ total, limit, skip }: { total: number; [key: string]: number | undefined }) => {
+        if (!limit || !skip) return;
+        const min = Math.min(limit * skip, total);
+        return Math.ceil(min / limit);
+    }
+
+    async getAll(options: GetAllDelimiters = {}): Promise<ReturnType<Array<T>>> {
         try {
-            const results = await this.delegate.findMany();
-            return { data: results, success: true } as Success<Array<T>>;
+            const total = await this.delegate.count({ where: options.where }) as number;
+            const skip = this.getPage({ total, take: options.take, skip: options.skip });
+            const results = await this.delegate.findMany({
+                where: options.where,
+                take: options.take,
+                skip,
+            });
+            return { data: results, success: true, total } as Success<Array<T>>;
         } catch (error) {
             return { error } as Error<Array<T>>;
         }
     }
 
-    async getById(id: number): Promise<ReturnType<Nullable<T>>> {
+    async getById(id: number): Promise<ReturnType<Nullish<T>>> {
         try {
-            const result = await this.delegate.findFirstOrThrow({ where: { id } });
+            const result = await this.delegate.findFirst({ where: { id } });
             return { data: result, success: true } as Success<T>;
         } catch (error) {
             return { error } as Error<T>;
@@ -54,7 +66,7 @@ class BaseRepository<T> implements Repository<T> {
         }
     }
 
-    async deleteById(id: number): Promise<ReturnType<Nullable<T>>> {
+    async deleteById(id: number): Promise<ReturnType<Nullish<T>>> {
         try {
             await this.delegate.delete({ where: { id } });
             return { success: true } as Success<undefined>;

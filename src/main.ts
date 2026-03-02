@@ -1,26 +1,39 @@
+import type { User } from './types/types.d.ts';
 import { PORT } from './constants/api.ts';
-
+import { router as routes } from './routes/index.ts';
+import { prisma } from './constants/db.ts';
 import express, { json, urlencoded } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 
 import cors from 'cors';
 import helmet from "helmet";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import routes from './routes/index.ts';
+
+import JWTMiddlewares from './middlewares/jwt.ts';
+import FactoryRepository from './repositories/factory.ts';
 
 const BASE_URL = '/api';
+const UserRepository = new FactoryRepository(prisma).getRepository<User>('user');
+const jwt = new JWTMiddlewares(UserRepository);
 
 const app = express();
 
 app.disable("x-powered-by");
 
-app.use(compression());
-app.use(json());
-app.use(cookieParser());
-app.use(helmet());
-app.use(cors());
-app.use(cors());
-app.use(urlencoded({ extended: true }));
+const initializers = [
+    compression(),
+    json(),
+    cookieParser(),
+    helmet(),
+    cors({ credentials: true }),
+    urlencoded({ extended: true }),
+    jwt.getUserData
+];
+
+app.use(initializers);
+
+app.use(`${BASE_URL}`, routes);
 
 app.get('/', (_req, res) => {
     res.send(`
@@ -38,7 +51,10 @@ app.get('/', (_req, res) => {
     `);
 });
 
-app.use(`${BASE_URL}/auth`, routes.AuthRouter);
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+    const { statusCode, ...errors } = err
+    res.status(statusCode).json({ ...errors });
+})
 
 app.listen(PORT, () => {
     console.log(`

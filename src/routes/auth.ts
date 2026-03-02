@@ -10,18 +10,34 @@ import Limiters from "../middlewares/rateLimiter.ts";
 
 const UserRepository = new UR(prisma).getRepository<User>('user');
 
-const UserValidator = new VM(UserSchema.safeParseAsync, UserRepository);
+const UserValidator = new VM(UserSchema(), UserRepository);
 
 const UserController = new UC(UserRepository);
 
-const AuthController = new AC(UserController);
+const AuthController = new AC(UserController, UserRepository);
 
 export const router = Router();
 
 router.post(
     '/register',
-    Limiters.defaultLimiter,
+    //Limiters.defaultLimiter,
     UserValidator.validateData,
     UserValidator.validateExistenceByField({ fieldName: 'email', shouldExists: false }),
     AuthController.register
+);
+
+router.post(
+    '/login',
+    UserValidator.validateExistenceByField({ fieldName: 'email', shouldExists: true }),
+    AuthController.login
+);
+
+router.post(
+    '/logout',
+    AuthController.logOut
+);
+
+router.get(
+    '/me',
+    AuthController.me
 );
