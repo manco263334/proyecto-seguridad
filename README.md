@@ -73,9 +73,9 @@ npm run dev
 ```
 
 ### 5. Corroborar el funcionamiento
-Para asegurar que la api esté funcionando en tu navegador web o en Postman (usando el método *GET*)busca la siguiente dirección URL:
+Para asegurar que la api esté funcionando en tu navegador web o en Postman (usando el método *GET*) busca la siguiente dirección URL:
 ```bash
-http://localhost:[PORT]:/
+http://localhost:[PORT]/
 ```
 
 Donde *[PORT]* es el mismo valor difinido en la variable de entorno
