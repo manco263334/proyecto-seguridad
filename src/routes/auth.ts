@@ -6,7 +6,7 @@ import UR  from "../repositories/factory.ts"
 import VM from "../middlewares/validations.ts";
 import UC from "../controllers/user.ts";
 import AC from "../controllers/auth.ts";
-import Limiters from "../middlewares/rateLimiter.ts";
+//import Limiters from "../middlewares/rateLimiter.ts";
 
 const UserRepository = new UR(prisma).getRepository<User>('user');
 
