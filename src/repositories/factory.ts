@@ -61,7 +61,7 @@ class BaseRepository<T> implements Repository<T> {
                 take: limit
             });
 
-            const data = results.length === 0 ? null : results.length === 1 ? results[0] : results;
+            const data = results.length === 0 ? null : limit === 1 ? results[0] : results;
 
             return { data, success: true } as Success<Array<T> | Nullish<T>>;
         } catch (error) {

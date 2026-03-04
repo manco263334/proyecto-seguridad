@@ -31,7 +31,7 @@ export default class AuthController {
         const data = req.body;
         const response = await this.repository.getByField({ fieldName: 'email', fieldFinder: data.email, limit: 1 });
 
-        const user = response.data[0] as TypeWithId<User>;
+        const user = response.data as TypeWithId<User>;
         const isCorrectPassword = await validatePassword(data.password, user.password);
 
         if (!isCorrectPassword)
