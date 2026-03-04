@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { SchemaPartialParser, SchemaPartialParserOptionsProps } from '../types/types';
+import type { SchemaPartialParser, SchemaPartialParserOptionsProps } from '../types/types.d.ts';
 
 const roles = ['cliente', 'admin'] as const;
 

@@ -57,9 +57,9 @@ export interface GetAllDelimiters {
 }
 
 export interface GetByFieldDelimiters {
-    fieldName: string
-    fieldFinder: string
-    limit: number
+    fieldName: string;
+    fieldFinder: string;
+    limit: number;
 }
 
 export interface Repository<T> {
@@ -67,7 +67,7 @@ export interface Repository<T> {
 
     getAll(delimiters?: GetAllDelimiters): Promise<ReturnType<Array<T>>>
 
-    getByField(delimiters: GetByFieldDelimiters): Promise<ReturnType<Array<T>>>
+    getByField(delimiters: GetByFieldDelimiters): Promise<ReturnType<Array<T> | Nullish<T>>>
 
     getById(id: number): Promise<ReturnType<Nullish<T>>>
 
@@ -111,11 +111,11 @@ export interface SchemaPartialParserOptionsProps {
 
 export type SchemaPartialParser<Output = unknown> = (options?: SchemaPartialParserOptionsProps) => (data: unknown, params?: z.core.ParseContext<z.core.$ZodIssue> | undefined) => Promise<SafeParseReturnType<Output> | ZodSafeParseResult>
 
-export interface PrismaDelegate<Output = unknown> {
-    create: (args: any) => Promise<Output>
-    findMany: (args?: any) => Promise<Array<Output>>
-    findFirst: (args: any) => Promise<Output>
-    delete: (args: any) => Promise<Output>
-    update: (args: any) => Promise<Output>
-    count: (args: any) => Promise<Output>
+export interface PrismaDelegate {
+    create: <Output = unknown>(args: any) => Promise<Output>
+    findMany: <Output = unknown>(args?: any) => Promise<Array<Output>>
+    findFirst: <Output = unknown>(args: any) => Promise<Output>
+    delete: <Output = unknown>(args: any) => Promise<Output>
+    update: <Output = unknown>(args: any) => Promise<PartialOrComplete<Output>>
+    count: <Output = unknown>(args: any) => Promise<Output>
 }

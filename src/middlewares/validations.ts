@@ -19,8 +19,8 @@ type ValidatePermissionsParams = {
 })
 
 export default class ValidationMiddlewares<RepositoryType, Output> {
-    private validator: Validator<Output>;
-    private repository: Repository<RepositoryType>;
+    protected validator: Validator<Output>;
+    protected repository: Repository<RepositoryType>;
 
     constructor (validator: Validator<Output>, repository: Repository<RepositoryType>) {
         this.validator = validator;
@@ -38,7 +38,7 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
     }
 
     validateExistenceByID = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
-        const id = parseId(req.params.id);
+        const id = await parseId(req.params.id);
 
         if (!id) 
             return next({ statusCode: 400, message: 'No se especificó un ID', error: 'Se requiere especificar un ID' });
@@ -71,11 +71,11 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
 
                 const { data } = result;
 
-                if (shouldExists && data.length === 0) {
+                if (shouldExists && !data) {
                     return next({ statusCode: 400, message: "No se encontró ningún elemento que coincida con el campo especificado" });
-                } else if (shouldExists && data.length > limit) {
+                } else if (shouldExists && Array.isArray(data) && data.length > limit) {
                     return next({ statusCode: 400, message: "Ya existen varios elementos que cumplen con esta condición" });
-                } else if (!shouldExists && data.length > 0) {
+                } else if (!shouldExists && data) {
                     return next({ statusCode: 400, message: "Ya existe un elemento que cumple con esta condición" });
                 }
             }
@@ -89,21 +89,21 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
         if (!user)
             return next({ statusCode: 401, message: "Usuario no autenticado, inicie sesión primero" });
 
-        const { acceptedPermissions, matchId } = params;
+        const { acceptedPermissions } = params;
         const acceptAll = acceptedPermissions.length === 1 && acceptedPermissions[0].trim() === "*";
+
+        if (!acceptAll && !acceptedPermissions.includes(user.permissions))
+            return next({ statusCode: 403, message: "Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción" });
+
+        const { matchId } = params;
 
         if (matchId) {
             const { excludedPermissionsFromMatchId } = params;
+            const id = await parseId(req.params.id);
             const isExcluded = excludedPermissionsFromMatchId?.includes(user.permissions);
-            const id = parseId(req.params.id);
-
-            if (!isExcluded && id !== user.id){
+            
+            if (!isExcluded && user.id !== id)
                 return next({ statusCode: 403, message: "Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción" });
-            }
-        } else {
-            if (!acceptAll && !acceptedPermissions.includes(user.permissions)) {
-                return next({ statusCode: 403, message: "Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción" });
-            }
         }
 
         next();

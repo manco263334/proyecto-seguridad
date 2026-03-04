@@ -31,6 +31,7 @@ export default class UserController extends FactoryController<User> {
         if (data.password) {
             const hashedPassword = await encryptPassword(data.password);
             data.password = hashedPassword;
+            req.body = data;
         }
 
         return super.updateById(req, res, next);

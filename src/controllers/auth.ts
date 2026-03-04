@@ -27,15 +27,9 @@ export default class AuthController {
         return this.controller.create(req as Request, res);
     }
 
-    async login (req: Request<unknown, any, Pick<User,'email' | 'password' >>, res: Response, next: NextFunction) {
+    async login (req: Request<unknown, any, Pick<User,'email' | 'password'>>, res: Response, next: NextFunction) {
         const data = req.body;
         const response = await this.repository.getByField({ fieldName: 'email', fieldFinder: data.email, limit: 1 });
-
-        if (!response.success)
-            return next({ statusCode: 500, message: 'Ocurrió un error inesperado al validar las credenciales, intente nuevamente' });
-
-        if (response.data.length === 0)
-            return next({ statusCode: 404, message: 'Credenciales inválidas' });
 
         const user = response.data[0] as TypeWithId<User>;
         const isCorrectPassword = await validatePassword(data.password, user.password);
@@ -43,7 +37,9 @@ export default class AuthController {
         if (!isCorrectPassword)
             return next({ statusCode: 400, message: 'Credenciales inválidas' });
 
-        const token = await generateToken({ id: user.id, permissions: user.role, email: user.email }, "7d");
+        const token = await generateToken({ id: user.id, permissions: user.role }, "7d");
+
+        const { password, ...userWithNoPassword } = user;
 
         res.cookie(AUTH_TOKEN, token, { 
             httpOnly: true, 
@@ -51,7 +47,7 @@ export default class AuthController {
             secure: EXPRESS_ENV === "production", 
             path: "/",
             maxAge: 1000 * 60 * 60 * 24 * 7
-        }).status(200).json({ message: "Login ok", data: user });
+        }).status(200).json({ message: "Login ok", data: userWithNoPassword });
     }
 
     async logOut (_req: Request, res: Response) {

@@ -4,7 +4,7 @@ import { UserSchema } from "../schemas/user.ts";
 import { prisma } from "../constants/db.ts";
 import UR  from "../repositories/factory.ts"
 import VM from "../middlewares/validations.ts";
-import UC from "../controllers/factory.ts";
+import UC from "../controllers/user.ts";
 import AC from "../controllers/auth.ts";
 import Limiters from "../middlewares/rateLimiter.ts";
 

@@ -71,9 +71,8 @@ export default class FactoryController<T> implements Controller<T> {
             skip
         });
 
-        if (!result.success) {
+        if (!result.success)
             return this.getAllMessageError(result.error, next);
-        }
 
         const { total } = result as Success<Array<T>> & { total: number };
         const data = await this.parsers?.parserGetAll?.<T>(result.data) ?? result.data;

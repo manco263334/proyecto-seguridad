@@ -17,7 +17,7 @@ class BaseRepository<T> implements Repository<T> {
 
     async create(data: T): Promise<ReturnType<T>> {
         try {
-            const result = await this.delegate.create({ data });
+            const result = await this.delegate.create<T>({ data });
             return { data: result, success: true } as Success<T>;
         } catch (error) {
             return { error } as Error<T>;
@@ -34,7 +34,7 @@ class BaseRepository<T> implements Repository<T> {
         try {
             const total = await this.delegate.count({ where: options.where }) as number;
             const skip = this.getPage({ total, take: options.take, skip: options.skip });
-            const results = await this.delegate.findMany({
+            const results = await this.delegate.findMany<T>({
                 where: options.where,
                 take: options.take,
                 skip,
@@ -47,20 +47,23 @@ class BaseRepository<T> implements Repository<T> {
 
     async getById(id: number): Promise<ReturnType<Nullish<T>>> {
         try {
-            const result = await this.delegate.findFirst({ where: { id } });
+            const result = await this.delegate.findFirst<T>({ where: { id } });
             return { data: result, success: true } as Success<T>;
         } catch (error) {
             return { error } as Error<T>;
         }
     }
 
-    async getByField({ fieldName, fieldFinder, limit = 10 }: GetByFieldDelimiters): Promise<ReturnType<Array<T>>> {
+    async getByField({ fieldName, fieldFinder, limit = 10 }: GetByFieldDelimiters): Promise<ReturnType<Array<T> | Nullish<T>>> {
         try {
-            const results = await this.delegate.findMany({ 
+            const results = await this.delegate.findMany<T>({ 
                 where: { [fieldName]: fieldFinder },
                 take: limit
             });
-            return { data: results, success: true } as Success<Array<T>>;
+
+            const data = results.length === 0 ? null : results.length === 1 ? results[0] : results;
+
+            return { data, success: true } as Success<Array<T> | Nullish<T>>;
         } catch (error) {
             return { error } as Error<Array<T>>;
         }
@@ -68,7 +71,7 @@ class BaseRepository<T> implements Repository<T> {
 
     async deleteById(id: number): Promise<ReturnType<Nullish<T>>> {
         try {
-            await this.delegate.delete({ where: { id } });
+            await this.delegate.delete<T>({ where: { id } });
             return { success: true } as Success<undefined>;
         } catch (error) {
             return { error } as Error<T>;
@@ -77,7 +80,7 @@ class BaseRepository<T> implements Repository<T> {
 
     async updateById(id: number, data: PartialOrComplete<T>): Promise<ReturnType<PartialOrComplete<T>>> {
         try {
-            const result = await this.delegate.update({ 
+            const result = await this.delegate.update<T>({ 
                 where: { id },
                 data
             });
