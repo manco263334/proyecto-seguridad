@@ -1,12 +1,12 @@
-import type { User } from "../types/types.d.ts";
-import { Router } from "express";
-import { UserSchema } from "../schemas/user.ts";
-import { prisma } from "../constants/db.ts";
-import UR  from "../repositories/factory.ts"
-import VM from "../middlewares/validations.ts";
-import UC from "../controllers/user.ts";
-import AC from "../controllers/auth.ts";
-//import Limiters from "../middlewares/rateLimiter.ts";
+import type { User } from '../types/types.d.ts';
+import { Router } from 'express';
+import { UserSchema } from '../schemas/user.ts';
+import { prisma } from '../constants/db.ts';
+import UR  from '../repositories/factory.ts'
+import VM from '../middlewares/validations.ts';
+import UC from '../controllers/user.ts';
+import AC from '../controllers/auth.ts';
+//import Limiters from '../middlewares/rateLimiter.ts';
 
 const UserRepository = new UR(prisma).getRepository<User>('user');
 

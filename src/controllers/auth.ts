@@ -1,8 +1,9 @@
-import type { NextFunction, Request, Response } from "express";
-import type { Controller, TypeWithId, Repository, User } from "../types/types.d.ts";
-import { encryptPassword, validatePassword } from "../utils/encrypt.ts";
-import { generateToken } from "../utils/jwt.ts";
-import { AUTH_TOKEN_NAME as AUTH_TOKEN, EXPRESS_ENV } from "../constants/api.ts";
+import type { NextFunction, Request, Response } from 'express';
+import type { Controller, TypeWithId, Repository, User } from '../types/types.d.ts';
+import { encryptPassword, validatePassword } from '../utils/encrypt.ts';
+import { generateToken } from '../utils/jwt.ts';
+import { AUTH_TOKEN_NAME as AUTH_TOKEN, NODE_ENV } from '../constants/api.ts';
+import { logger } from '../utils/logger.ts';
 
 export default class AuthController {
     private controller: Controller<User>;
@@ -37,31 +38,31 @@ export default class AuthController {
         if (!isCorrectPassword)
             return next({ statusCode: 400, message: 'Credenciales inválidas' });
 
-        const token = await generateToken({ id: user.id, permissions: user.role }, "7d");
+        const token = await generateToken({ id: user.id, permissions: user.role }, '7d');
 
         const { password, ...userWithNoPassword } = user;
 
         res.cookie(AUTH_TOKEN, token, { 
             httpOnly: true, 
-            sameSite: EXPRESS_ENV === "production" ? "none" : undefined, 
-            secure: EXPRESS_ENV === "production", 
-            path: "/",
+            sameSite: NODE_ENV === 'production' ? 'none' : undefined, 
+            secure: NODE_ENV === 'production', 
+            path: '/',
             maxAge: 1000 * 60 * 60 * 24 * 7
-        }).status(200).json({ message: "Login ok", data: userWithNoPassword });
+        }).status(200).json({ message: 'Login ok', data: userWithNoPassword });
     }
 
     async logOut (_req: Request, res: Response) {
         res.clearCookie(AUTH_TOKEN);
-        res.status(200).json({ message: "Sesión cerrada con éxito" });
+        res.status(200).json({ message: 'Sesión cerrada con éxito' });
     }
 
     async me (req: Request, res: Response, next: NextFunction) {
         const user = req.session?.user;
 
         if (!user) {
-            next({ statusCode: 401, message: "Usuario no identificado" });
+            next({ statusCode: 401, message: 'Usuario no identificado' });
         } else {
-            res.status(200).json({ data: user, message: "Usuario identificado correctamente" })
+            res.status(200).json({ data: user, message: 'Usuario identificado correctamente' })
         }
     }
 }

@@ -1,7 +1,9 @@
-import type { NextFunction, Request, Response } from "express";
-import type { Repository, User, ControllerParsers } from "../types/types.d.ts";
-import { encryptPassword } from "../utils/encrypt.ts";
-import FactoryController from "./factory.ts";
+import type { NextFunction, Request, Response } from 'express';
+import type { Repository, User, ControllerParsers } from '../types/types.d.ts';
+import { encryptPassword } from '../utils/encrypt.ts';
+import FactoryController from './factory.ts';
+import { logger } from '../utils/logger.ts';
+
 
 export default class UserController extends FactoryController<User> {
     constructor (repository: Repository<User>) {

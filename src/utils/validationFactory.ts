@@ -1,6 +1,6 @@
-import type { ZodObject } from "zod"
-import type { Repository, SchemaPartialParser } from "../types/types.d.ts"
-import VM from "../middlewares/validations.ts"
+import type { ZodObject } from 'zod'
+import type { Repository, SchemaPartialParser } from '../types/types.d.ts'
+import VM from '../middlewares/validations.ts'
 
 interface ValidationFactoryProps<RepositoryType, Output> {
     isPartial: boolean

@@ -1,6 +1,7 @@
-import type { NextFunction, Request, Response } from "express";
-import type { Controller, Repository, ControllerParsers, Success } from "../types/types.d.ts";
-import { parseId, parseQueryParams } from "../utils/parser.ts";
+import type { NextFunction, Request, Response } from 'express';
+import type { Controller, Repository, ControllerParsers, Success } from '../types/types.d.ts';
+import { parseId, parseQueryParams } from '../utils/parser.ts';
+import { logger } from '../utils/logger.ts';
 
 export default class FactoryController<T> implements Controller<T> {
     protected repository: Repository<T>;
@@ -26,11 +27,13 @@ export default class FactoryController<T> implements Controller<T> {
 
         const data = await this.parsers?.parserCreate?.<T>(result.data) ?? result.data;
 
-        res.status(201).json({ message: "Elemento creado correctamente", data });
+        res.status(201).json({ message: 'Elemento creado correctamente', data });
     }
 
     private getAllMessageError = (error: unknown, next: NextFunction) => {
+        logger.info('Se entró al apartado para conseguir un mensaje de error por parte del método getAll en el FactoryController');
         const message = error instanceof Error ? error.message : '';
+        logger.debug(`Valor de message: ${message}`);
 
         const errorMap: Array<{ keyword: string; response: { statusCode: number; message: string }}> = [
             {
@@ -78,7 +81,7 @@ export default class FactoryController<T> implements Controller<T> {
         const data = await this.parsers?.parserGetAll?.<T>(result.data) ?? result.data;
 
         res.status(200).json({ 
-            message: "Elementos obtenidos", 
+            message: 'Elementos obtenidos', 
             data,
             meta: {
                 page: Number(page) || 1,
@@ -93,12 +96,12 @@ export default class FactoryController<T> implements Controller<T> {
         const result = await this.repository.getById(id);
 
         if (!result.success) 
-            return next({ statusCode: 500, message: "Ocurrió un error al consultar el elemento, lamentamos lo sucedido", error: result.error });
+            return next({ statusCode: 500, message: 'Ocurrió un error al consultar el elemento, lamentamos lo sucedido', error: result.error });
 
         const body = result.data as T;
         const data = await this.parsers?.parserGet?.<T>(body) ?? body;
 
-        res.status(200).json({ message: "Elemento recuperado", data });
+        res.status(200).json({ message: 'Elemento recuperado', data });
     }
 
     async updateById (req: Request<any, any, PartialOrComplete<T>>, res: Response, next: NextFunction) {
@@ -108,11 +111,11 @@ export default class FactoryController<T> implements Controller<T> {
         const result = await this.repository.updateById(id, body);
 
         if (!result.success) 
-            return next({ statusCode: 500, message: "Ocurrió algo inesperado mientras se actualizaba el elemento, lamentamos lo sucedido", error: result.error });
+            return next({ statusCode: 500, message: 'Ocurrió algo inesperado mientras se actualizaba el elemento, lamentamos lo sucedido', error: result.error });
 
         const data = await this.parsers?.parserUpdate?.<T>(result.data) ?? result.data;
 
-        res.status(200).json({ message: "Elemento actualizado satisfactoriamente", data });
+        res.status(200).json({ message: 'Elemento actualizado satisfactoriamente', data });
     }
 
     async deleteById (req: Request, res: Response, next: NextFunction) {
@@ -120,8 +123,8 @@ export default class FactoryController<T> implements Controller<T> {
         const result = await this.repository.deleteById(id);
 
         if (!result.success) 
-            return next({ statusCode: 500, message: "Ocurrió algo inesperado al eliminar el elemento, intente nuevamente", error: result.error });
+            return next({ statusCode: 500, message: 'Ocurrió algo inesperado al eliminar el elemento, intente nuevamente', error: result.error });
 
-        res.status(200).json({ message: "Elemento eliminado correctamente" });
+        res.status(200).json({ message: 'Elemento eliminado correctamente' });
     }
 }

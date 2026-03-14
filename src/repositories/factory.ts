@@ -1,5 +1,5 @@
-import type { Repository, Error, Success, ReturnType, PrismaDelegate, GetByFieldDelimiters, GetAllDelimiters } from "../types/types.d.ts";
-import type { PrismaClient } from "../generated/prisma/client.ts";
+import type { Repository, Error, Success, ReturnType, PrismaDelegate, GetByFieldDelimiters, GetAllDelimiters } from '../types/types.d.ts';
+import type { PrismaClient } from '../generated/prisma/client.ts';
 
 class BaseRepository<T> implements Repository<T> {
     protected delegate: PrismaDelegate;

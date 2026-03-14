@@ -1,6 +1,7 @@
-import type { Request, Response, NextFunction } from "express";
-import type { Repository, Role, Validator } from "../types/types.d.ts";
-import { parseId } from "../utils/parser.ts";
+import type { Request, Response, NextFunction } from 'express';
+import type { Repository, Role, Validator } from '../types/types.d.ts';
+import { parseId } from '../utils/parser.ts';
+import { logger } from '../utils/logger.ts';
 
 interface ValidateExistenceByFieldParams<ExcludedValuesType> {
     fieldName: string
@@ -10,7 +11,7 @@ interface ValidateExistenceByFieldParams<ExcludedValuesType> {
 }
 
 type ValidatePermissionsParams = {
-    acceptedPermissions: "*" | Array<"*" | Role>
+    acceptedPermissions: '*' | Array<'*' | Role>
 } & ({
     matchId?: false
 } | {
@@ -61,22 +62,22 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
             const fieldFinder = req.body[fieldName];
 
             if (!fieldFinder)
-                return next({ statusCode: 400, message: `No se encontró ningún campo llamado "${fieldName}" en el cuerpo de la petición` });
+                return next({ statusCode: 400, message: `No se encontró ningún campo llamado '${fieldName}' en el cuerpo de la petición` });
 
             if (!excludedValues?.includes(fieldFinder)) {
                 const result = await this.repository.getByField({ fieldName, fieldFinder, limit });
 
                 if (!result.success)
-                    return next({ statusCode: 500, message: "Ocurrió un error al consultar la existencia, lamentamos las inconvenientes", error: result.error });
+                    return next({ statusCode: 500, message: 'Ocurrió un error al consultar la existencia, lamentamos las inconvenientes', error: result.error });
 
                 const { data } = result;
 
                 if (shouldExists && !data) {
-                    return next({ statusCode: 400, message: "No se encontró ningún elemento que coincida con el campo especificado" });
+                    return next({ statusCode: 400, message: 'No se encontró ningún elemento que coincida con el campo especificado' });
                 } else if (shouldExists && Array.isArray(data) && data.length > limit) {
-                    return next({ statusCode: 400, message: "Ya existen varios elementos que cumplen con esta condición" });
+                    return next({ statusCode: 400, message: 'Ya existen varios elementos que cumplen con esta condición' });
                 } else if (!shouldExists && data) {
-                    return next({ statusCode: 400, message: "Ya existe un elemento que cumple con esta condición" });
+                    return next({ statusCode: 400, message: 'Ya existe un elemento que cumple con esta condición' });
                 }
             }
 
@@ -84,16 +85,22 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
         }
 
     validatePermissions = (params: ValidatePermissionsParams) => async (req: Request, _res: Response, next: NextFunction) => {
+        logger.info('Se detectó el ingreso de un usuario en el middleware para validar permisos');
         const user = req.session?.user;
+        logger.debug(`Usuario detectado: ${user}`);
 
-        if (!user)
-            return next({ statusCode: 401, message: "Usuario no autenticado, inicie sesión primero" });
+        if (!user){
+            logger.warn('No se detectó un usuario, devolviendo error 401');
+            return next({ statusCode: 401, message: 'Usuario no autenticado, inicie sesión primero' });
+        }
 
         const { acceptedPermissions } = params;
-        const acceptAll = acceptedPermissions.length === 1 && acceptedPermissions[0].trim() === "*";
+        const acceptAll = acceptedPermissions.length === 1 && acceptedPermissions[0].trim() === '*';
 
-        if (!acceptAll && !acceptedPermissions.includes(user.permissions))
-            return next({ statusCode: 403, message: "Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción" });
+        if (!acceptAll && !acceptedPermissions.includes(user.permissions)) {
+            logger.warn('Se detectó a un usuario pero no cuenta con los requisitos, devolviendo error 403');
+            return next({ statusCode: 403, message: 'Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción' });
+        }
 
         const { matchId } = params;
 
@@ -103,7 +110,7 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
             const isExcluded = excludedPermissionsFromMatchId?.includes(user.permissions);
             
             if (!isExcluded && user.id !== id)
-                return next({ statusCode: 403, message: "Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción" });
+                return next({ statusCode: 403, message: 'Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción' });
         }
 
         next();

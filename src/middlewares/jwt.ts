@@ -1,7 +1,7 @@
-import type { Request, Response, NextFunction } from "express";
-import type { Repository, User, Role } from "../types/types.d.ts";
-import { verifyToken } from "../utils/jwt.ts";
-import { AUTH_TOKEN_NAME as AUTH_TOKEN } from "../constants/api.ts";
+import type { Request, Response, NextFunction } from 'express';
+import type { Repository, User, Role } from '../types/types.d.ts';
+import { verifyToken } from '../utils/jwt.ts';
+import { AUTH_TOKEN_NAME as AUTH_TOKEN } from '../constants/api.ts';
 
 type ValidatePermissionsResponse = {
     code: number

@@ -1,10 +1,11 @@
-import type { User } from "../types/types.d.ts";
-import { Router } from "express";
-import { prisma } from "../constants/db.ts";
-import { UserSchema } from "../schemas/user.ts";
-import { validationFactory } from "../utils/validationFactory.ts";
-import UC from "../controllers/user.ts";
-import FR from "../repositories/factory.ts";
+import type { User } from '../types/types.d.ts';
+import { Router } from 'express';
+import { prisma } from '../constants/db.ts';
+import { UserSchema } from '../schemas/user.ts';
+import { validationFactory } from '../utils/validationFactory.ts';
+//import Limiters from '../middlewares/rateLimiter.ts';
+import UC from '../controllers/user.ts';
+import FR from '../repositories/factory.ts';
 
 const UserRepository = new FR(prisma).getRepository<User>('user');
 const UserController = new UC(UserRepository);
@@ -15,6 +16,7 @@ export const router = Router();
 
 router.get(
     '/',
+    //Limiters.defaultLimiter,
     UserValidator().validatePermissions({ acceptedPermissions: ['admin'] }),
     UserController.getAll
 );

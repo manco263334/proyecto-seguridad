@@ -1,5 +1,5 @@
-import { Request, Response, type NextFunction } from "express";
-import { z, ZodObject, ZodSafeParseResult } from "zod";
+import { Request, Response, type NextFunction } from 'express';
+import { z, ZodObject, ZodSafeParseResult } from 'zod';
 
 declare global {
     /**
