@@ -1,20 +1,12 @@
-import type { User } from '../types/types.d.ts';
 import { Router } from 'express';
 import { UserSchema } from '../schemas/user.ts';
-import { prisma } from '../constants/db.ts';
-import UR  from '../repositories/factory.ts'
-import VM from '../middlewares/validations.ts';
-import UC from '../controllers/user.ts';
-import AC from '../controllers/auth.ts';
+import { validationFactory } from '../utils/validationFactory.ts';
+import container from '../utils/container.ts';
 //import Limiters from '../middlewares/rateLimiter.ts';
 
-const UserRepository = new UR(prisma).getRepository<User>('user');
+const { UserRepository, AuthController } = container;
 
-const UserValidator = new VM(UserSchema(), UserRepository);
-
-const UserController = new UC(UserRepository);
-
-const AuthController = new AC(UserController, UserRepository);
+const UserValidator = validationFactory({ isPartial: false, schema: UserSchema, repository: UserRepository });
 
 export const router = Router();
 

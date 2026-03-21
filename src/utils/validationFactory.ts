@@ -1,6 +1,6 @@
 import type { ZodObject } from 'zod'
 import type { Repository, SchemaPartialParser } from '../types/types.d.ts'
-import VM from '../middlewares/validations.ts'
+import ValidationMiddlewares from '../middlewares/validations.ts'
 
 interface ValidationFactoryProps<RepositoryType, Output> {
     isPartial: boolean
@@ -12,5 +12,5 @@ export function validationFactory<RepositoryType, Output = unknown>({ isPartial,
     const schemaValidator = typeof schema === 'function' ? schema({ isPartial }) : 
         isPartial ? schema.partial().safeParseAsync : schema.safeParseAsync;
 
-    return new VM<RepositoryType, Output>(schemaValidator, repository);
+    return new ValidationMiddlewares<RepositoryType, Output>(schemaValidator, repository);
 }

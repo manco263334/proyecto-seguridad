@@ -1,11 +1,13 @@
-import type { Repository, Error, Success, ReturnType, PrismaDelegate, GetByFieldDelimiters, GetAllDelimiters } from '../types/types.d.ts';
 import type { PrismaClient } from '../generated/prisma/client.ts';
+import type { Repository, Error, Success, ReturnType, PrismaDelegate, GetByFieldDelimiters, GetAllDelimiters } from '../types/types.d.ts';
 
-class BaseRepository<T> implements Repository<T> {
+export class BaseRepository<T> implements Repository<T> {
     protected delegate: PrismaDelegate;
+    protected prisma?: PrismaClient;
 
-    constructor(delegate: PrismaDelegate) {
+    constructor(delegate: PrismaDelegate, prisma?: PrismaClient) {
         this.delegate = delegate;
+        this.prisma = prisma;
 
         this.create = this.create.bind(this);
         this.getAll = this.getAll.bind(this);
@@ -45,7 +47,7 @@ class BaseRepository<T> implements Repository<T> {
         }
     }
 
-    async getById(id: number): Promise<ReturnType<Nullish<T>>> {
+    async getById(id: string): Promise<ReturnType<Nullish<T>>> {
         try {
             const result = await this.delegate.findFirst<T>({ where: { id } });
             return { data: result, success: true } as Success<T>;
@@ -69,7 +71,7 @@ class BaseRepository<T> implements Repository<T> {
         }
     }
 
-    async deleteById(id: number): Promise<ReturnType<Nullish<T>>> {
+    async deleteById(id: string): Promise<ReturnType<Nullish<T>>> {
         try {
             await this.delegate.delete<T>({ where: { id } });
             return { success: true } as Success<undefined>;
@@ -78,7 +80,7 @@ class BaseRepository<T> implements Repository<T> {
         }
     }
 
-    async updateById(id: number, data: PartialOrComplete<T>): Promise<ReturnType<PartialOrComplete<T>>> {
+    async updateById(id: string, data: PartialOrComplete<T>): Promise<ReturnType<PartialOrComplete<T>>> {
         try {
             const result = await this.delegate.update<T>({ 
                 where: { id },
@@ -100,6 +102,6 @@ export default class FactoryRepository {
 
     // Método genérico para obtener cualquier repositorio estándar
     getRepository<T>(modelName: keyof PrismaClient): BaseRepository<T> {
-        return new BaseRepository<T>(this.prisma[modelName] as PrismaDelegate);
+        return new BaseRepository<T>(this.prisma[modelName] as PrismaDelegate, this.prisma);
     }
 }

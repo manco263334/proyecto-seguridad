@@ -1,14 +1,11 @@
-import type { User } from '../types/types.d.ts';
 import { Router } from 'express';
-import { prisma } from '../constants/db.ts';
 import { UserSchema } from '../schemas/user.ts';
 import { validationFactory } from '../utils/validationFactory.ts';
+import container from '../utils/container.ts';
 //import Limiters from '../middlewares/rateLimiter.ts';
-import UC from '../controllers/user.ts';
-import FR from '../repositories/factory.ts';
 
-const UserRepository = new FR(prisma).getRepository<User>('user');
-const UserController = new UC(UserRepository);
+const { UserRepository, UserController } = container;
+
 const UserValidator = ({ isPartial = false } = {}) => 
     validationFactory({ isPartial, schema: UserSchema, repository: UserRepository });
 
@@ -17,7 +14,7 @@ export const router = Router();
 router.get(
     '/',
     //Limiters.defaultLimiter,
-    UserValidator().validatePermissions({ acceptedPermissions: ['admin'] }),
+    UserValidator().validatePermissions({ acceptedPermissions: ['ADMIN'] }),
     UserController.getAll
 );
 
@@ -30,8 +27,8 @@ router.post(
 
 router.use(
     '/:id',
-    UserValidator().validateExistenceByID,
-    UserValidator().validatePermissions({ acceptedPermissions: '*', matchId: true, excludedPermissionsFromMatchId: ['admin'] })
+    UserValidator().validateExistenceById(),
+    UserValidator().validatePermissions({ acceptedPermissions: '*', matchId: true, excludedPermissionsFromMatchId: ['ADMIN'] })
 );
 
 router.get(

@@ -1,8 +1,6 @@
-import type { User } from './types/types.d.ts';
 import type { Request, Response, NextFunction } from 'express';
 import { PORT } from './constants/api.ts';
 import { router as routes } from './routes/index.ts';
-import { prisma } from './constants/db.ts';
 import { logger } from './utils/logger.ts';
 import express, { json, urlencoded } from 'express';
 
@@ -11,12 +9,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 
-import JWTMiddlewares from './middlewares/jwt.ts';
-import FactoryRepository from './repositories/factory.ts';
-
 const BASE_URL = '/api';
-const UserRepository = new FactoryRepository(prisma).getRepository<User>('user');
-const jwt = new JWTMiddlewares(UserRepository);
 
 const app = express();
 
@@ -28,8 +21,7 @@ const initializers = [
     cookieParser(),
     helmet(),
     cors({ credentials: true }),
-    urlencoded({ extended: true }),
-    jwt.getUserData
+    urlencoded({ extended: true })
 ];
 
 app.use(initializers);

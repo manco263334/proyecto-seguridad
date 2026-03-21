@@ -9,9 +9,86 @@ datasource db {
   provider = "sqlite"
 }
 
+enum UserRole {
+  USUARIO
+  ADMIN
+}
+
 model User {
-  id       Int @id @default(autoincrement())
+  id       String @id @default(uuid())
   email    String @unique
   password String
-  role     String @default("cliente")
+  role     UserRole @default(USUARIO)
+
+  profiles  Profile[]
+}
+
+enum ProfileType {
+  CLIENTE
+  VENDEDOR
+}
+
+// 2. Información detallada del Actor (Cliente o Empresa)
+model Profile {
+  id           String   @id @default(uuid())
+  name         String
+  type         ProfileType
+  taxId        String   
+  address      String?
+  userId       String   
+  user         User     @relation(fields: [userId], references: [id])
+
+  invoicesSent Invoice[] @relation("IssuerInvoices")
+  invoicesReceived Invoice[] @relation("RecipientInvoices")
+}
+
+// 3. Catálogo de Productos/Servicios
+model Product {
+  id          String        @id @default(uuid())
+  name        String
+  description String?
+  price       Float
+  stock       Int           @default(0)
+
+  items       InvoiceItem[]
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+// 4. Cabecera de la Factura
+model Invoice {
+  id          String   @id @default(uuid())
+  number      String   @unique // Folio correlativo
+  createdAt   DateTime @default(now())
+  dueDate     DateTime
+  taxRate     Float    @default(0.16) // IVA, por ejemplo
+  totalAmount Float
+  status      InvoiceStatus   @default(PENDING) // "PAID", "CANCELLED"
+
+  // Relaciones con los actores
+  issuerId    String
+  issuer      Profile  @relation("IssuerInvoices", fields: [issuerId], references: [id])
+
+  recipientId String
+  recipient   Profile  @relation("RecipientInvoices", fields: [recipientId], references: [id])
+
+  items       InvoiceItem[]
+}
+
+// 5. Cuerpo o Detalle de la Factura
+model InvoiceItem {
+  id        String  @id @default(uuid())
+  quantity  Int
+  unitPrice Float
+  subtotal  Float
+
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
 }

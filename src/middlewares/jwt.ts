@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import type { Repository, User, Role } from '../types/types.d.ts';
+import type { Repository, User, UserRole } from '../types/types.d.ts';
 import { verifyToken } from '../utils/jwt.ts';
 import { AUTH_TOKEN_NAME as AUTH_TOKEN } from '../constants/api.ts';
 
@@ -27,7 +27,7 @@ export default class JWTMiddlewares {
 
         if (token) {
             try {
-                const payload = await verifyToken(token) as { id: number, permissions: Role };
+                const payload = await verifyToken(token) as { id: string, permissions: UserRole };
 
                 const result = await this.validatePermissions(payload.id, payload.permissions);
                 const { code, success } = result;
@@ -44,7 +44,7 @@ export default class JWTMiddlewares {
         next();
     }
 
-    async validatePermissions (id: number, permissions: Role): Promise<ValidatePermissionsResponse> {
+    async validatePermissions (id: string, permissions: UserRole): Promise<ValidatePermissionsResponse> {
         const response = await this.repository.getById(id);
 
         if (!response.success) return { code: 500, error: 'Ocurrió un error inesperado, intente nuevamente' };

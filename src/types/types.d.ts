@@ -12,7 +12,7 @@ declare global {
     namespace Express {
         interface Session {
             user?: { 
-                id: number
+                id: string
                 permissions: Role
             }
         }
@@ -23,12 +23,61 @@ declare global {
     }
 }
 
-export type Role = 'cliente' | 'admin'
+export type UserRole = 'USUARIO' | 'ADMIN'
 
 export interface User {
     email: string
     password: string
-    role: Role
+    role: UserRole
+}
+
+export type ProfileType = 'VENDEDOR' | 'CLIENTE'
+
+export interface Profile {
+    name: string
+    type: ProfileType
+    taxId: string
+    address?: string
+    userId: string
+}
+
+export interface ProfileWithUser {
+    name: string
+    type: ProfileType
+    taxId: string
+    address?: string
+    user: Omit<User, 'password' | 'role'>
+}
+
+export interface ProfileWithInvoices extends ProfileWithUser {
+    invoicesSent: Array<InvoiceWithIssuerAndRecipient>
+    invoicesReceived: Array<InvoiceWithIssuerAndRecipient>
+}
+
+export interface Product {
+    name: string
+    description?: string
+    price: number
+    stock: number
+}
+
+export type InvoiceStatus = 'PENDING' | 'PAID' | 'CANCELLED'
+
+export interface Invoice {
+    number: string
+    createdAt: Date
+    dueDate: Date
+    taxRate: number
+    totalAmount: number
+    status: InvoiceStatus
+
+    issuerId: string
+    recipientId: string
+}
+
+export interface InvoiceWithIssuerAndRecipient extends Omit<Invoice, 'issuerId' | 'recipientId'> {
+    issuer: ProfileWithUser
+    recipient: ProfileWithUser
 }
 
 export interface ControllerParsers<Input> {
@@ -69,11 +118,11 @@ export interface Repository<T> {
 
     getByField(delimiters: GetByFieldDelimiters): Promise<ReturnType<Array<T> | Nullish<T>>>
 
-    getById(id: number): Promise<ReturnType<Nullish<T>>>
+    getById(id: string): Promise<ReturnType<Nullish<T>>>
 
-    updateById(id: number, data: PartialOrComplete<T>): Promise<ReturnType<PartialOrComplete<T>>>
+    updateById(id: string, data: PartialOrComplete<T>): Promise<ReturnType<PartialOrComplete<T>>>
 
-    deleteById(id: number): Promise<ReturnType<Nullish<T>>>
+    deleteById(id: string): Promise<ReturnType<Nullish<T>>>
 }
 
 export interface Success<T> {
@@ -98,7 +147,7 @@ export type SafeParseReturnType<Output> = {
 }
 
 export type TypeWithId<T> = T & {
-    id: number
+    id: string
 }
 
 type TypeWithoutId<T extends TypeWithId> = Omit<T, 'id'>

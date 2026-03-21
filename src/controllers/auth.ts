@@ -3,7 +3,6 @@ import type { Controller, TypeWithId, Repository, User } from '../types/types.d.
 import { encryptPassword, validatePassword } from '../utils/encrypt.ts';
 import { generateToken } from '../utils/jwt.ts';
 import { AUTH_TOKEN_NAME as AUTH_TOKEN, NODE_ENV } from '../constants/api.ts';
-import { logger } from '../utils/logger.ts';
 
 export default class AuthController {
     private controller: Controller<User>;
