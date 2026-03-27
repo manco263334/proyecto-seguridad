@@ -13,6 +13,6 @@ export const router = Router();
 
 router.post(
     '/',
-    ProductValidator().validateData,
+    ProductValidator().validateData(),
     ProductController.create
 );

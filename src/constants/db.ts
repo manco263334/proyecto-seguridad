@@ -1,11 +1,17 @@
 import 'dotenv/config';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 import { PrismaClient } from '../generated/prisma/client.ts';
-import { logger } from '../utils/logger.ts';
+import Logger from '../utils/logger.ts';
+
+const LoggerClass = new Logger;
+LoggerClass.setLogLevel('info');
+
+const { logger } = LoggerClass;
 
 logger.info('Se entró al archivo de la base de datos');
 
 const connectionString = `${process.env.DATABASE_URL}`;
+logger.info('Se creó el string de conexión a la base de datos')
 
 const adapter = new PrismaBetterSqlite3({ url: connectionString });
 logger.info('Se creó la conexión a la base de datos');

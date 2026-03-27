@@ -3,6 +3,8 @@ import type { Controller, TypeWithId, Repository, User } from '../types/types.d.
 import { encryptPassword, validatePassword } from '../utils/encrypt.ts';
 import { generateToken } from '../utils/jwt.ts';
 import { AUTH_TOKEN_NAME as AUTH_TOKEN, NODE_ENV } from '../constants/api.ts';
+import Logger from '../utils/logger.ts';
+const LoggerClass = new Logger;
 
 export default class AuthController {
     private controller: Controller<User>;
@@ -19,6 +21,9 @@ export default class AuthController {
     }
 
     async register (req: Request<unknown, any, User>, res: Response) {
+        LoggerClass.setLogLevel('info');
+        LoggerClass.logger.info('Se entró al endpoint de registro');
+
         const data = req.body;
         const passwordEncrypted = await encryptPassword(data.password);
         data.password = passwordEncrypted;
@@ -28,15 +33,21 @@ export default class AuthController {
     }
 
     async login (req: Request<unknown, any, Pick<User,'email' | 'password'>>, res: Response, next: NextFunction) {
+        LoggerClass.setLogLevel('info');
+        LoggerClass.logger.info('Se entró al endpoint de login');
+
         const data = req.body;
         const response = await this.repository.getByField({ fieldName: 'email', fieldFinder: data.email, limit: 1 });
 
         const user = response.data as TypeWithId<User>;
+        LoggerClass.setLogLevel('debug');
+        LoggerClass.logger.debug({ user });
+
         const isCorrectPassword = await validatePassword(data.password, user.password);
 
-        if (!isCorrectPassword)
+        if (!isCorrectPassword) {
             return next({ statusCode: 400, message: 'Credenciales inválidas' });
-
+        }
         const token = await generateToken({ id: user.id, permissions: user.role }, '7d');
 
         const { password, ...userWithNoPassword } = user;
@@ -51,6 +62,9 @@ export default class AuthController {
     }
 
     async logOut (_req: Request, res: Response) {
+        LoggerClass.setLogLevel('info');
+        LoggerClass.logger.info('Se entró al endpoint de logout');
+
         res.clearCookie(AUTH_TOKEN);
         res.status(200).json({ message: 'Sesión cerrada con éxito' });
     }

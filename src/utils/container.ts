@@ -1,6 +1,7 @@
 import type { ControllerParsers, User } from "../types/types.d.ts";
 import { PrismaClient } from "../generated/prisma/client.ts";
 import { prisma } from "../constants/db.ts";
+import Logger from "./logger.ts";
 import FactoryController from "../controllers/factory.ts";
 import FactoryRepository from "../repositories/factory.ts";
 import JWTMiddlewares from "../middlewares/jwt.ts";
@@ -14,9 +15,11 @@ const AuthController = new AC(UserController, UserRepository);
 const InvoiceRepository = new IR(prisma);
 
 const jwt = new JWTMiddlewares(UserRepository);
+const LoggerClass = new Logger;
 
 const container = {
     db: prisma,
+    LoggerClass,
     UserRepository,
     UserController,
     AuthController,

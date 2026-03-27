@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import { PORT } from './constants/api.ts';
 import { router as routes } from './routes/index.ts';
-import { logger } from './utils/logger.ts';
+import container from './utils/container.ts';
 import express, { json, urlencoded } from 'express';
 
 import cors from 'cors';
@@ -10,7 +10,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 
 const BASE_URL = '/api';
-
+const { LoggerClass } = container;
 const app = express();
 
 app.disable('x-powered-by');
@@ -45,8 +45,12 @@ app.get('/', (_req, res) => {
 });
 
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    logger.error(err);
-    const { statusCode, ...errors } = err
+    const { statusCode = 500, ...errors } = err;
+    const level = statusCode >= 500 ? 'error' : 'warn';
+
+    LoggerClass.setLogLevel(level);
+    LoggerClass.logger[level](err);
+
     res.status(statusCode).json({ ...errors });
 });
 

@@ -1,7 +1,9 @@
 import type { Request, Response, NextFunction } from 'express';
 import type { Repository, UserRole, Validator } from '../types/types.d.ts';
 import { parseId } from '../utils/parser.ts';
-import { logger } from '../utils/logger.ts';
+import container from '../utils/container.ts';
+
+const { LoggerClass } = container;
 
 interface CallNextMiddleware {
     callNext?: boolean
@@ -46,7 +48,7 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
         this.validatePermissions = this.validatePermissions.bind(this);
     }
 
-    validateData ({ callNext = true }: ValidateDataParams) {
+    validateData ({ callNext = true }: ValidateDataParams = {}) {
         return async (req: Request, _res: Response, next: NextFunction): Promise<void> =>  {
             const result = await this.validator(req.body);
 
@@ -113,12 +115,17 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
 
     validatePermissions ({ callNext = true, ...options }: ValidatePermissionsParams){
         return async (req: Request, _res: Response, next: NextFunction) => {
-            logger.info('Se detectó el ingreso de un usuario en el middleware para validar permisos');
+            LoggerClass.setLogLevel('info');
+            LoggerClass.logger.info('Se detectó el ingreso de un usuario en el middleware para validar permisos');
+
             const user = req.session?.user;
-            logger.debug(`Usuario detectado: ${user}`);
+            LoggerClass.setLogLevel('debug');
+            LoggerClass.logger.debug(`Usuario detectado: ${user}`);
     
             if (!user){
-                logger.warn('No se detectó un usuario, devolviendo error 401');
+                LoggerClass.setLogLevel('warn');
+                LoggerClass.logger.warn('No se detectó un usuario, devolviendo error 401');
+
                 return next({ statusCode: 401, message: 'Usuario no autenticado, inicie sesión primero' });
             }
     
@@ -126,7 +133,9 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
             const acceptAll = acceptedPermissions.length === 1 && acceptedPermissions[0].trim() === '*';
     
             if (!acceptAll && !acceptedPermissions.includes(user.permissions)) {
-                logger.warn('Se detectó a un usuario pero no cuenta con los requisitos, devolviendo error 403');
+                LoggerClass.setLogLevel('warn');
+                LoggerClass.logger.warn('Se detectó a un usuario pero no cuenta con los requisitos, devolviendo error 403');
+
                 return next({ statusCode: 403, message: 'Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción' });
             }
     

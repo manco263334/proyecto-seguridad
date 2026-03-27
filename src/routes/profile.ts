@@ -19,7 +19,7 @@ export const router = Router();
 router.post(
     '/',
     UserValidator.validateExistenceById({ idName: 'userId' }),
-    ProfileValidator().validateData,
+    ProfileValidator().validateData(),
     ProfileController.create
 );
 

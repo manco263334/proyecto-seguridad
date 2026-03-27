@@ -20,7 +20,7 @@ router.get(
 
 router.post(
     '/',
-    UserValidator().validateData,
+    UserValidator().validateData(),
     UserValidator().validateExistenceByField({ fieldName: 'email', shouldExists: false }),
     UserController.create
 );
@@ -38,7 +38,7 @@ router.get(
 
 router.put(
     '/:id',
-    UserValidator({ isPartial: true }).validateData,
+    UserValidator({ isPartial: true }).validateData(),
     UserController.updateById
 );
 

@@ -1,8 +1,9 @@
 import type { NextFunction, Request, Response } from 'express';
 import type { Controller, Repository, ControllerParsers, Success } from '../types/types.d.ts';
 import { parseId, parseQueryParams } from '../utils/parser.ts';
-import { logger } from '../utils/logger.ts';
+import Logger from '../utils/logger.ts';
 
+const LoggerClass = new Logger;
 export default class FactoryController<T> implements Controller<T> {
     protected repository: Repository<T>;
     private parsers?: ControllerParsers<T>
@@ -31,9 +32,12 @@ export default class FactoryController<T> implements Controller<T> {
     }
 
     private getAllMessageError = (error: unknown, next: NextFunction) => {
-        logger.info('Se entró al apartado para conseguir un mensaje de error por parte del método getAll en el FactoryController');
+        LoggerClass.setLogLevel('info');
+        LoggerClass.logger.info('Se entró al apartado para conseguir un mensaje de error por parte del método getAll en el FactoryController');
+
         const message = error instanceof Error ? error.message : '';
-        logger.debug(`Valor de message: ${message}`);
+        LoggerClass.setLogLevel('debug');
+        LoggerClass.logger.debug(`Valor de message: ${message}`);
 
         const errorMap: Array<{ keyword: string; response: { statusCode: number; message: string }}> = [
             {

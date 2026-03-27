@@ -13,7 +13,7 @@ export const router = Router();
 router.post(
     '/register',
     //Limiters.defaultLimiter,
-    UserValidator.validateData,
+    UserValidator.validateData(),
     UserValidator.validateExistenceByField({ fieldName: 'email', shouldExists: false }),
     AuthController.register
 );

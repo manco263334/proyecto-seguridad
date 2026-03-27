@@ -1,4 +1,3 @@
-import { logger } from '../utils/logger';
 import rateLimit from 'express-rate-limit';
 
 export default class Limiters {
