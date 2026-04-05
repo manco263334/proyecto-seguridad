@@ -1,3 +1,0 @@
-{"level":"error","message":{"error":[{"code":"too_big","inclusive":true,"maximum":10,"message":"Too big: expected string to have <=10 characters","origin":"string","path":["password"]}],"statusCode":400},"timestamp":"2026-03-27T18:19:22.295Z"}
-{"level":"error","message":"Credenciales inválidas","statusCode":400,"timestamp":"2026-03-27T18:22:14.021Z"}
-{"level":"error","message":"Ya existe un elemento que cumple con esta condición","statusCode":400,"timestamp":"2026-03-27T18:22:31.582Z"}

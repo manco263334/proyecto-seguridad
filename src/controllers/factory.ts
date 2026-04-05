@@ -32,11 +32,9 @@ export default class FactoryController<T> implements Controller<T> {
     }
 
     private getAllMessageError = (error: unknown, next: NextFunction) => {
-        LoggerClass.setLogLevel('info');
         LoggerClass.logger.info('Se entró al apartado para conseguir un mensaje de error por parte del método getAll en el FactoryController');
 
         const message = error instanceof Error ? error.message : '';
-        LoggerClass.setLogLevel('debug');
         LoggerClass.logger.debug(`Valor de message: ${message}`);
 
         const errorMap: Array<{ keyword: string; response: { statusCode: number; message: string }}> = [

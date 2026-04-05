@@ -1,5 +1,5 @@
 import type { PrismaClient } from "../generated/prisma/client.ts";
-import type { Invoice, PrismaDelegate, Success, Error, ReturnType } from "../types/types.d.ts";
+import type {Invoice, PrismaDelegate, Success, Error, ReturnType, Product} from "../types/types.d.ts";
 import { BaseRepository } from "./factory.ts";
 
 export default class InvoiceRepository extends BaseRepository<Invoice> {
@@ -19,7 +19,7 @@ export default class InvoiceRepository extends BaseRepository<Invoice> {
 
             // 1. Validar productos y calcular montos
             for (const item of data.items) {
-                const product = (await transaction.product.findUnique({ where: { id: item.productId } }))!;
+                const product = await transaction.product.findUnique({ where: { id: item.productId }}) as Product;
 
                 const subtotal = product.price * item.quantity;
                 totalAmount += subtotal;

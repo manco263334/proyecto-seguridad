@@ -99,12 +99,14 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
     
                 const { data } = result;
     
+                const message = `'${fieldName}' = '${fieldFinder}'`;
+
                 if (shouldExists && !data) {
-                    return next({ statusCode: 400, message: 'No se encontró ningún elemento que coincida con el campo especificado' });
+                    return next({ statusCode: 400, message: `No se encontró ningún elemento que coincida con el campo especificado: ${message}` });
                 } else if (shouldExists && Array.isArray(data) && data.length > limit) {
-                    return next({ statusCode: 400, message: 'Ya existen varios elementos que cumplen con esta condición' });
+                    return next({ statusCode: 400, message: `Ya existen varios elementos que cumplen con esta condición: ${message}` });
                 } else if (!shouldExists && data) {
-                    return next({ statusCode: 400, message: 'Ya existe un elemento que cumple con esta condición' });
+                    return next({ statusCode: 400, message: `Ya existe un elemento que cumple con esta condición: ${message}` });
                 }
             }
 
@@ -115,15 +117,12 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
 
     validatePermissions ({ callNext = true, ...options }: ValidatePermissionsParams){
         return async (req: Request, _res: Response, next: NextFunction) => {
-            LoggerClass.setLogLevel('info');
             LoggerClass.logger.info('Se detectó el ingreso de un usuario en el middleware para validar permisos');
 
             const user = req.session?.user;
-            LoggerClass.setLogLevel('debug');
             LoggerClass.logger.debug(`Usuario detectado: ${user}`);
     
             if (!user){
-                LoggerClass.setLogLevel('warn');
                 LoggerClass.logger.warn('No se detectó un usuario, devolviendo error 401');
 
                 return next({ statusCode: 401, message: 'Usuario no autenticado, inicie sesión primero' });
@@ -133,7 +132,6 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
             const acceptAll = acceptedPermissions.length === 1 && acceptedPermissions[0].trim() === '*';
     
             if (!acceptAll && !acceptedPermissions.includes(user.permissions)) {
-                LoggerClass.setLogLevel('warn');
                 LoggerClass.logger.warn('Se detectó a un usuario pero no cuenta con los requisitos, devolviendo error 403');
 
                 return next({ statusCode: 403, message: 'Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción' });

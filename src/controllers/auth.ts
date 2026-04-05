@@ -21,7 +21,6 @@ export default class AuthController {
     }
 
     async register (req: Request<unknown, any, User>, res: Response) {
-        LoggerClass.setLogLevel('info');
         LoggerClass.logger.info('Se entró al endpoint de registro');
 
         const data = req.body;
@@ -33,24 +32,22 @@ export default class AuthController {
     }
 
     async login (req: Request<unknown, any, Pick<User,'email' | 'password'>>, res: Response, next: NextFunction) {
-        LoggerClass.setLogLevel('info');
         LoggerClass.logger.info('Se entró al endpoint de login');
 
         const data = req.body;
         const response = await this.repository.getByField({ fieldName: 'email', fieldFinder: data.email, limit: 1 });
 
         const user = response.data as TypeWithId<User>;
-        LoggerClass.setLogLevel('debug');
-        LoggerClass.logger.debug({ user });
+        const { password, ...userWithNoPassword } = user;
+        LoggerClass.logger.debug({ user: userWithNoPassword });
 
-        const isCorrectPassword = await validatePassword(data.password, user.password);
+        const isCorrectPassword = await validatePassword(data.password, password);
 
         if (!isCorrectPassword) {
             return next({ statusCode: 400, message: 'Credenciales inválidas' });
         }
-        const token = await generateToken({ id: user.id, permissions: user.role }, '7d');
 
-        const { password, ...userWithNoPassword } = user;
+        const token = await generateToken({ id: user.id, permissions: user.role }, '7d');
 
         res.cookie(AUTH_TOKEN, token, { 
             httpOnly: true, 
@@ -62,7 +59,6 @@ export default class AuthController {
     }
 
     async logOut (_req: Request, res: Response) {
-        LoggerClass.setLogLevel('info');
         LoggerClass.logger.info('Se entró al endpoint de logout');
 
         res.clearCookie(AUTH_TOKEN);

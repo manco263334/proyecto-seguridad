@@ -18,13 +18,6 @@ router.get(
     UserController.getAll
 );
 
-router.post(
-    '/',
-    UserValidator().validateData(),
-    UserValidator().validateExistenceByField({ fieldName: 'email', shouldExists: false }),
-    UserController.create
-);
-
 router.use(
     '/:id',
     UserValidator().validateExistenceById(),

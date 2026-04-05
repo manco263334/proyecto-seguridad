@@ -20,13 +20,44 @@ router.post(
     ProfileValidator.validateExistenceById({ idName: 'recipientId' }),
     async (req: Request<unknown, any, any>, res: Response, next: NextFunction) => {
         const { body } = req;
-        const { items } = body as { items: Array<{ productId: string; quantity: number }> };
 
-        if (!items || items.length === 0) {
-            return next({ statusCode: 400, error: "La factura debe tener al menos un producto" });
+        interface Item {
+            productId: string
+            quantity: number
         }
 
-        await Promise.all(items.map(async item => {
+        const { items } = body as any;
+
+        const isItemsArray = (items: any): items is Array<Item> => {
+            if (Array.isArray(items)) {
+                return items.length > 0 && items.every(item => Object.hasOwn(item, 'productId') && Object.hasOwn(item, 'quantity'));
+            } else {
+                try {
+                    const parsed = JSON.parse(items);
+                    return Array.isArray(parsed) ? isItemsArray(parsed) : false;
+                } catch {
+                    return false;
+                }
+            }
+        }
+
+        const validations = [
+            (items: any) => items !== undefined && items !== null,
+            (items: any) => isItemsArray(items)
+        ];
+
+        const all = validations.every(Boolean);
+
+        if (!all) {
+            return next({ statusCode: 400, message: 'Se necesita especificar al menos un producto' });
+        }
+
+        const parseItems = (items: any): Array<Item> => 
+            items.map((item: any) => ({ productId: item.productId, quantity: item.quantity }));
+
+        const parsedItems = parseItems(items);
+
+        await Promise.all(parsedItems.map(async item => {
             req.body = item;
 
             await ProductValidator.validateExistenceById({ idName: 'productId', callNext: false })(req as Request, res, next);

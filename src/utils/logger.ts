@@ -13,7 +13,7 @@ const logDir = path.join(__dirname, '..', 'logs');
 type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
 
 export default class Logger {
-    private logLevel: LogLevel = 'info';
+    private logLevel: LogLevel = 'debug';
 
     public logger = winston.createLogger({
         level: this.logLevel,
@@ -24,31 +24,7 @@ export default class Logger {
         ),
         transports: [
             new transports.File({
-                filename: `${logDir}/trace.log`,
-                level: 'trace'
-            }),
-            new transports.File({
-                filename: `${logDir}/debug.log`,
-                level: 'debug'
-            }),
-            new transports.File({
-                filename: `${logDir}/info.log`,
-                level: 'info'
-            }),
-            new transports.File({
-                filename: `${logDir}/warn.log`,
-                level: 'warn'
-            }),
-            new transports.File({
-                filename: `${logDir}/error.log`,
-                level: 'error'
-            }),
-            new transports.File({
-                filename: `${logDir}/fatal.log`,
-                level: 'fatal'
-            }),
-            new transports.File({
-                filename: `${logDir}/combined.log`
+                filename: `${logDir}/app.log`
             })
         ]
     });

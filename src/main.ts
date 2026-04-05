@@ -48,7 +48,6 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const { statusCode = 500, ...errors } = err;
     const level = statusCode >= 500 ? 'error' : 'warn';
 
-    LoggerClass.setLogLevel(level);
     LoggerClass.logger[level](err);
 
     res.status(statusCode).json({ ...errors });

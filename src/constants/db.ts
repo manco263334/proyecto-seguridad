@@ -4,7 +4,6 @@ import { PrismaClient } from '../generated/prisma/client.ts';
 import Logger from '../utils/logger.ts';
 
 const LoggerClass = new Logger;
-LoggerClass.setLogLevel('info');
 
 const { logger } = LoggerClass;
 
