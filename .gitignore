@@ -23,11 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 
+*.exe
 /prisma/migrations
 *.db
 *.sql
 package-lock.json
 /src/generated/prisma
-db.sql
-dbv.db
-.env
+*.sql
+*.db
+*.env

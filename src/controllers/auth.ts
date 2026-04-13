@@ -39,7 +39,6 @@ export default class AuthController {
 
         const user = response.data as TypeWithId<User>;
         const { password, ...userWithNoPassword } = user;
-        LoggerClass.logger.debug({ user: userWithNoPassword });
 
         const isCorrectPassword = await validatePassword(data.password, password);
 

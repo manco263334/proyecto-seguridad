@@ -1,97 +1,160 @@
-{"level":"info","message":"Se entró al archivo de la base de datos","timestamp":"2026-03-25T19:53:05.686Z"}
-{"level":"info","message":"Se creó el string de conexión a la base de datos","timestamp":"2026-03-25T19:53:05.690Z"}
-{"level":"info","message":"Se creó la conexión a la base de datos","timestamp":"2026-03-25T19:53:05.691Z"}
-{"level":"info","message":"Se exportó la base de datos","timestamp":"2026-03-25T19:53:05.695Z"}
-{"level":"info","message":"Se entró al archivo de la base de datos","timestamp":"2026-03-27T18:13:48.152Z"}
-{"level":"info","message":"Se creó el string de conexión a la base de datos","timestamp":"2026-03-27T18:13:48.155Z"}
-{"level":"info","message":"Se creó la conexión a la base de datos","timestamp":"2026-03-27T18:13:48.156Z"}
-{"level":"info","message":"Se exportó la base de datos","timestamp":"2026-03-27T18:13:48.159Z"}
-{"level":"info","message":"Se entró al archivo de la base de datos","timestamp":"2026-03-27T18:14:45.153Z"}
-{"level":"info","message":"Se creó el string de conexión a la base de datos","timestamp":"2026-03-27T18:14:45.157Z"}
-{"level":"info","message":"Se creó la conexión a la base de datos","timestamp":"2026-03-27T18:14:45.158Z"}
-{"level":"info","message":"Se exportó la base de datos","timestamp":"2026-03-27T18:14:45.162Z"}
-{"level":"info","message":"Se entró al archivo de la base de datos","timestamp":"2026-03-27T18:19:15.112Z"}
-{"level":"info","message":"Se creó el string de conexión a la base de datos","timestamp":"2026-03-27T18:19:15.116Z"}
-{"level":"info","message":"Se creó la conexión a la base de datos","timestamp":"2026-03-27T18:19:15.116Z"}
-{"level":"info","message":"Se exportó la base de datos","timestamp":"2026-03-27T18:19:15.120Z"}
-{"level":"error","message":{"error":[{"code":"too_big","inclusive":true,"maximum":10,"message":"Too big: expected string to have <=10 characters","origin":"string","path":["password"]}],"statusCode":400},"timestamp":"2026-03-27T18:19:22.295Z"}
-{"level":"info","message":"Se entró al endpoint de registro","timestamp":"2026-03-27T18:20:10.895Z"}
-{"level":"info","message":"Se entró al endpoint de login","timestamp":"2026-03-27T18:21:44.345Z"}
-{"level":"info","message":"Se entró al apartado para crear el token","timestamp":"2026-03-27T18:21:44.519Z"}
-{"level":"info","message":"Se entró al endpoint de login","timestamp":"2026-03-27T18:22:13.911Z"}
-{"level":"error","message":"Credenciales inválidas","statusCode":400,"timestamp":"2026-03-27T18:22:14.021Z"}
-{"level":"info","message":"Se entró al endpoint de login","timestamp":"2026-03-27T18:22:19.603Z"}
-{"level":"info","message":"Se entró al apartado para crear el token","timestamp":"2026-03-27T18:22:19.741Z"}
-{"level":"info","message":"Se entró al apartado para verificar token","timestamp":"2026-03-27T18:22:31.574Z"}
-{"level":"error","message":"Ya existe un elemento que cumple con esta condición","statusCode":400,"timestamp":"2026-03-27T18:22:31.582Z"}
-{"level":"info","message":"Se entró al apartado para verificar token","timestamp":"2026-03-27T18:22:37.037Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-03-27T18:22:37.042Z"}
-{"level":"info","message":"Se entró al apartado para verificar token","timestamp":"2026-03-27T18:22:47.237Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-03-27T18:22:47.244Z"}
-{"level":"info","message":"Se entró al apartado para verificar token","timestamp":"2026-03-27T18:22:53.578Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-03-27T18:22:53.582Z"}
-{"level":"info","message":"Se entró al apartado para verificar token","timestamp":"2026-03-27T18:23:00.829Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-03-27T18:23:00.833Z"}
-{"level":"info","message":"Se entró al archivo de la base de datos","timestamp":"2026-03-27T18:29:16.187Z"}
-{"level":"info","message":"Se creó el string de conexión a la base de datos","timestamp":"2026-03-27T18:29:16.193Z"}
-{"level":"info","message":"Se creó la conexión a la base de datos","timestamp":"2026-03-27T18:29:16.193Z"}
-{"level":"info","message":"Se exportó la base de datos","timestamp":"2026-03-27T18:29:16.198Z"}
-{"level":"info","message":"Se entró al archivo de la base de datos","timestamp":"2026-04-02T19:42:40.883Z"}
-{"level":"info","message":"Se creó el string de conexión a la base de datos","timestamp":"2026-04-02T19:42:40.885Z"}
-{"level":"info","message":"Se creó la conexión a la base de datos","timestamp":"2026-04-02T19:42:40.886Z"}
-{"level":"info","message":"Se exportó la base de datos","timestamp":"2026-04-02T19:42:40.889Z"}
-{"level":"warn","message":"No se encontró ningún elemento que coincida con el campo especificado: 'email' = 'jazielsolisreal23@gmail.com'","statusCode":400,"timestamp":"2026-04-02T19:43:02.594Z"}
-{"level":"warn","message":"Ya existe un elemento que cumple con esta condición: 'email' = 'jazielsolisreal@gmail.com'","statusCode":400,"timestamp":"2026-04-02T19:43:12.980Z"}
-{"level":"info","message":"Se entró al endpoint de login","timestamp":"2026-04-02T19:43:21.054Z"}
-{"level":"debug","message":{"user":{"email":"jazielsolisreal@gmail.com","id":"b0aa91e7-f3a9-41f3-9737-5c7f2223ec71","role":"ADMIN"}},"timestamp":"2026-04-02T19:43:21.056Z"}
-{"level":"info","message":"Se entró al apartado para crear el token","timestamp":"2026-04-02T19:43:21.217Z"}
-{"level":"info","message":"Se entró al archivo de la base de datos","timestamp":"2026-04-02T19:49:18.012Z"}
-{"level":"info","message":"Se creó el string de conexión a la base de datos","timestamp":"2026-04-02T19:49:18.015Z"}
-{"level":"info","message":"Se creó la conexión a la base de datos","timestamp":"2026-04-02T19:49:18.016Z"}
-{"level":"info","message":"Se exportó la base de datos","timestamp":"2026-04-02T19:49:18.018Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-04-02T19:49:40.995Z"}
-{"level":"debug","message":"Usuario detectado: undefined","timestamp":"2026-04-02T19:49:40.996Z"}
-{"level":"error","message":"LoggerClass.logger.warning is not a function","stack":"TypeError: LoggerClass.logger.warning is not a function\n    at file:///C:/Users/jazie/OneDrive/Escritorio/Vite/Typescript%20puro/Fernandita/proyecto-seguridad/src/middlewares/validations.ts:126:36\n    at Layer.handleRequest (C:\\Users\\jazie\\OneDrive\\Escritorio\\Vite\\Typescript puro\\Fernandita\\proyecto-seguridad\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (C:\\Users\\jazie\\OneDrive\\Escritorio\\Vite\\Typescript puro\\Fernandita\\proyecto-seguridad\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (C:\\Users\\jazie\\OneDrive\\Escritorio\\Vite\\Typescript puro\\Fernandita\\proyecto-seguridad\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (C:\\Users\\jazie\\OneDrive\\Escritorio\\Vite\\Typescript puro\\Fernandita\\proyecto-seguridad\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (C:\\Users\\jazie\\OneDrive\\Escritorio\\Vite\\Typescript puro\\Fernandita\\proyecto-seguridad\\node_modules\\router\\lib\\layer.js:152:17)\n    at C:\\Users\\jazie\\OneDrive\\Escritorio\\Vite\\Typescript puro\\Fernandita\\proyecto-seguridad\\node_modules\\router\\index.js:295:15\n    at processParams (C:\\Users\\jazie\\OneDrive\\Escritorio\\Vite\\Typescript puro\\Fernandita\\proyecto-seguridad\\node_modules\\router\\index.js:582:12)\n    at next (C:\\Users\\jazie\\OneDrive\\Escritorio\\Vite\\Typescript puro\\Fernandita\\proyecto-seguridad\\node_modules\\router\\index.js:291:5)\n    at router.handle (C:\\Users\\jazie\\OneDrive\\Escritorio\\Vite\\Typescript puro\\Fernandita\\proyecto-seguridad\\node_modules\\router\\index.js:186:3)","timestamp":"2026-04-02T19:49:40.997Z"}
-{"level":"info","message":"Se entró al archivo de la base de datos","timestamp":"2026-04-02T19:50:13.942Z"}
-{"level":"info","message":"Se creó el string de conexión a la base de datos","timestamp":"2026-04-02T19:50:13.946Z"}
-{"level":"info","message":"Se creó la conexión a la base de datos","timestamp":"2026-04-02T19:50:13.946Z"}
-{"level":"info","message":"Se exportó la base de datos","timestamp":"2026-04-02T19:50:13.950Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-04-02T19:50:26.892Z"}
-{"level":"debug","message":"Usuario detectado: undefined","timestamp":"2026-04-02T19:50:26.893Z"}
-{"level":"warn","message":"No se detectó un usuario, devolviendo error 401","timestamp":"2026-04-02T19:50:26.893Z"}
-{"level":"warn","message":"Usuario no autenticado, inicie sesión primero","statusCode":401,"timestamp":"2026-04-02T19:50:26.895Z"}
-{"level":"info","message":"Se entró al archivo de la base de datos","timestamp":"2026-04-05T17:50:11.805Z"}
-{"level":"info","message":"Se creó el string de conexión a la base de datos","timestamp":"2026-04-05T17:50:11.808Z"}
-{"level":"info","message":"Se creó la conexión a la base de datos","timestamp":"2026-04-05T17:50:11.808Z"}
-{"level":"info","message":"Se exportó la base de datos","timestamp":"2026-04-05T17:50:11.814Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-04-05T17:50:16.348Z"}
-{"level":"debug","message":"Usuario detectado: undefined","timestamp":"2026-04-05T17:50:16.349Z"}
-{"level":"warn","message":"No se detectó un usuario, devolviendo error 401","timestamp":"2026-04-05T17:50:16.349Z"}
-{"level":"warn","message":"Usuario no autenticado, inicie sesión primero","statusCode":401,"timestamp":"2026-04-05T17:50:16.350Z"}
-{"level":"warn","message":"No se encontró ningún elemento que coincida con el campo especificado: 'email' = 'jazielsolisreal@gmail.co'","statusCode":400,"timestamp":"2026-04-05T17:51:13.207Z"}
-{"level":"info","message":"Se entró al endpoint de login","timestamp":"2026-04-05T17:51:29.385Z"}
-{"level":"debug","message":{"user":{"email":"jazielsolisreal@gmail.com","id":"b0aa91e7-f3a9-41f3-9737-5c7f2223ec71","role":"ADMIN"}},"timestamp":"2026-04-05T17:51:29.389Z"}
-{"level":"warn","message":"Credenciales inválidas","statusCode":400,"timestamp":"2026-04-05T17:51:29.525Z"}
-{"level":"info","message":"Se entró al endpoint de login","timestamp":"2026-04-05T17:52:21.206Z"}
-{"level":"debug","message":{"user":{"email":"jazielsolisreal@gmail.com","id":"b0aa91e7-f3a9-41f3-9737-5c7f2223ec71","role":"ADMIN"}},"timestamp":"2026-04-05T17:52:21.208Z"}
-{"level":"info","message":"Se entró al apartado para crear el token","timestamp":"2026-04-05T17:52:21.297Z"}
-{"level":"info","message":"Se entró al apartado para verificar token","timestamp":"2026-04-05T17:52:41.350Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-04-05T17:52:41.357Z"}
-{"level":"debug","message":"Usuario detectado: [object Object]","timestamp":"2026-04-05T17:52:41.358Z"}
-{"level":"info","message":"Se entró al endpoint de login","timestamp":"2026-04-05T17:53:15.106Z"}
-{"level":"debug","message":{"user":{"email":"montesantos@gmail.com","id":"e9008120-0c41-4bbd-a232-c74ffc07dd50","role":"USUARIO"}},"timestamp":"2026-04-05T17:53:15.107Z"}
-{"level":"info","message":"Se entró al apartado para crear el token","timestamp":"2026-04-05T17:53:15.181Z"}
-{"level":"info","message":"Se entró al apartado para verificar token","timestamp":"2026-04-05T17:53:26.254Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-04-05T17:53:26.257Z"}
-{"level":"debug","message":"Usuario detectado: [object Object]","timestamp":"2026-04-05T17:53:26.259Z"}
-{"level":"warn","message":"Se detectó a un usuario pero no cuenta con los requisitos, devolviendo error 403","timestamp":"2026-04-05T17:53:26.260Z"}
-{"level":"warn","message":"Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción","statusCode":403,"timestamp":"2026-04-05T17:53:26.260Z"}
-{"level":"info","message":"Se entró al apartado para verificar token","timestamp":"2026-04-05T17:54:03.875Z"}
-{"level":"warn","message":"No se encontró ningún elemento con el ID especificado a través de los parámetros: 2","statusCode":404,"timestamp":"2026-04-05T17:54:03.881Z"}
-{"level":"info","message":"Se entró al apartado para verificar token","timestamp":"2026-04-05T17:54:28.819Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-04-05T17:54:28.825Z"}
-{"level":"debug","message":"Usuario detectado: [object Object]","timestamp":"2026-04-05T17:54:28.825Z"}
-{"level":"info","message":"Se entró al apartado para verificar token","timestamp":"2026-04-05T17:54:36.752Z"}
-{"level":"info","message":"Se detectó el ingreso de un usuario en el middleware para validar permisos","timestamp":"2026-04-05T17:54:36.758Z"}
-{"level":"debug","message":"Usuario detectado: [object Object]","timestamp":"2026-04-05T17:54:36.758Z"}
-{"level":"warn","message":"Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción","statusCode":403,"timestamp":"2026-04-05T17:54:36.759Z"}
+[2026-03-25 19:53:05] | [INFO] | Se entró al archivo de la base de datos
+[2026-03-25 19:53:05] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-03-25 19:53:05] | [INFO] | Se creó la conexión a la base de datos
+[2026-03-25 19:53:05] | [INFO] | Se exportó la base de datos
+[2026-03-27 18:13:48] | [INFO] | Se entró al archivo de la base de datos
+[2026-03-27 18:13:48] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-03-27 18:13:48] | [INFO] | Se creó la conexión a la base de datos
+[2026-03-27 18:13:48] | [INFO] | Se exportó la base de datos
+[2026-03-27 18:14:45] | [INFO] | Se entró al archivo de la base de datos
+[2026-03-27 18:14:45] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-03-27 18:14:45] | [INFO] | Se creó la conexión a la base de datos
+[2026-03-27 18:14:45] | [INFO] | Se exportó la base de datos
+[2026-03-27 18:19:15] | [INFO] | Se entró al archivo de la base de datos
+[2026-03-27 18:19:15] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-03-27 18:19:15] | [INFO] | Se creó la conexión a la base de datos
+[2026-03-27 18:19:15] | [INFO] | Se exportó la base de datos
+[2026-03-27 18:19:22] | [ERROR] | Error 400 en password: Too big (expected string to have <=10 characters)
+[2026-03-27 18:20:10] | [INFO] | Se entró al endpoint de registro
+[2026-03-27 18:21:44] | [INFO] | Se entró al endpoint de login
+[2026-03-27 18:21:44] | [INFO] | Se entró al apartado para crear el token
+[2026-03-27 18:22:13] | [INFO] | Se entró al endpoint de login
+[2026-03-27 18:22:14] | [ERROR] | Credenciales inválidas (Status: 400)
+[2026-03-27 18:22:19] | [INFO] | Se entró al endpoint de login
+[2026-03-27 18:22:19] | [INFO] | Se entró al apartado para crear el token
+[2026-03-27 18:22:31] | [INFO] | Se entró al apartado para verificar token
+[2026-03-27 18:22:31] | [ERROR] | Ya existe un elemento que cumple con esta condición (Status: 400)
+[2026-03-27 18:22:37] | [INFO] | Se entró al apartado para verificar token
+[2026-03-27 18:22:37] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-03-27 18:22:47] | [INFO] | Se entró al apartado para verificar token
+[2026-03-27 18:22:47] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-03-27 18:22:53] | [INFO] | Se entró al apartado para verificar token
+[2026-03-27 18:22:53] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-03-27 18:23:00] | [INFO] | Se entró al apartado para verificar token
+[2026-03-27 18:23:00] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-03-27 18:29:16] | [INFO] | Se entró al archivo de la base de datos
+[2026-03-27 18:29:16] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-03-27 18:29:16] | [INFO] | Se creó la conexión a la base de datos
+[2026-03-27 18:29:16] | [INFO] | Se exportó la base de datos
+[2026-04-02 19:42:40] | [INFO] | Se entró al archivo de la base de datos
+[2026-04-02 19:42:40] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-04-02 19:42:40] | [INFO] | Se creó la conexión a la base de datos
+[2026-04-02 19:42:40] | [INFO] | Se exportó la base de datos
+[2026-04-02 19:43:02] | [WARN] | No se encontró ningún elemento que coincida con el campo especificado'
+[2026-04-02 19:43:12] | [WARN] | Ya existe un elemento que cumple con la condición'
+[2026-04-02 19:43:21] | [INFO] | Se entró al endpoint de login
+[2026-04-02 19:43:21] | [DEBUG] | Datos de usuario: jazielsolisreal@gmail.com
+[2026-04-02 19:43:21] | [INFO] | Se entró al apartado para crear el token
+[2026-04-02 19:49:18] | [INFO] | Se entró al archivo de la base de datos
+[2026-04-02 19:49:18] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-04-02 19:49:18] | [INFO] | Se creó la conexión a la base de datos
+[2026-04-02 19:49:18] | [INFO] | Se exportó la base de datos
+[2026-04-02 19:49:40] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-02 19:49:40] | [ERROR] | LoggerClass.logger.warning is not a function (TypeError)
+[2026-04-02 19:50:13] | [INFO] | Se entró al archivo de la base de datos
+[2026-04-02 19:50:13] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-04-02 19:50:13] | [INFO] | Se creó la conexión a la base de datos
+[2026-04-02 19:50:13] | [INFO] | Se exportó la base de datos
+[2026-04-02 19:50:26] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-02 19:50:26] | [WARN] | No se detectó un usuario, devolviendo error 401
+[2026-04-02 19:50:26] | [WARN] | Usuario no autenticado, inicie sesión primero (Status: 401)
+[2026-04-05T 17:50:11] | [INFO] | Se entró al archivo de la base de datos
+[2026-04-05T 17:50:11] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-04-05T 17:50:11] | [INFO] | Se creó la conexión a la base de datos
+[2026-04-05T 17:50:11] | [INFO] | Se exportó la base de datos
+[2026-04-05T 17:50:16] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-05T 17:50:16] | [WARN] | No se detectó un usuario, devolviendo error 401
+[2026-04-05T 17:50:16] | [WARN] | Usuario no autenticado, inicie sesión primero (Status: 401)
+[2026-04-05T 17:51:13] | [WARN] | No se encontró ningún elemento que coincida con el campo especificado
+[2026-04-05T 17:51:29] | [INFO] | Se entró al endpoint de login
+[2026-04-05T 17:51:29] | [DEBUG] | Datos de usuario: jazielsolisreal@gmail.com
+[2026-04-05T 17:51:29] | [WARN] | Credenciales inválidas (Status: 400)
+[2026-04-05T 17:52:21] | [INFO] | Se entró al endpoint de login
+[2026-04-05T 17:52:21] | [DEBUG] | Datos de usuario: jazielsolisreal@gmail.com
+[2026-04-05T 17:52:21] | [INFO] | Se entró al apartado para crear el token
+[2026-04-05T 17:52:41] | [INFO] | Se entró al apartado para verificar token
+[2026-04-05T 17:52:41] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-05T 17:53:15] | [INFO] | Se entró al endpoint de login
+[2026-04-05T 17:53:15] | [DEBUG] | Datos de usuario: montesantos@gmail.com
+[2026-04-05T 17:53:15] | [INFO] | Se entró al apartado para crear el token
+[2026-04-05T 17:53:26] | [INFO] | Se entró al apartado para verificar token
+[2026-04-05T 17:53:26] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-05T 17:53:26] | [WARN] | Se detectó a un usuario pero no cuenta con los requisitos, devolviendo error 403
+[2026-04-05T 17:53:26] | [WARN] | Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción (Status: 403)
+[2026-04-05T 17:54:03] | [INFO] | Se entró al apartado para verificar token
+[2026-04-05T 17:54:03] | [WARN] | No se encontró ningún elemento con el ID especificado: 2 (Status: 404)
+[2026-04-05T 17:54:28] | [INFO] | Se entró al apartado para verificar token
+[2026-04-05T 17:54:28] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-05T 17:54:36] | [INFO] | Se entró al apartado para verificar token
+[2026-04-05T 17:54:36] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-05T 17:54:36] | [WARN] | Lo sentimos, no cuentas con los permisos necesarios para realizar esta acción (Status: 403)
+[2026-04-13 23:06:55.932Z] | [INFO] | Se entró al archivo de la base de datos
+[2026-04-13 23:06:55.935Z] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-04-13 23:06:55.936Z] | [INFO] | Se creó la conexión a la base de datos
+[2026-04-13 23:06:55.943Z] | [INFO] | Se exportó la base de datos
+[2026-04-13 23:08:19.399Z] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-13 23:08:19.400Z] | [DEBUG] | Usuario detectado: undefined
+[2026-04-13 23:08:19.401Z] | [WARN] | No se detectó un usuario, devolviendo error 401
+[2026-04-13 23:08:19.402Z] | [WARN] | Usuario no autenticado, inicie sesión primero
+[2026-04-13 23:09:42.838Z] | [INFO] | Se entró al archivo de la base de datos
+[2026-04-13 23:09:42.841Z] | [INFO] | Se creó el string de conexión a la base de datos
+[2026-04-13 23:09:42.841Z] | [INFO] | Se creó la conexión a la base de datos
+[2026-04-13 23:09:42.845Z] | [INFO] | Se exportó la base de datos
+[2026-04-13 23:10:32.822Z] | [INFO] | Se entró al endpoint de login
+[2026-04-13 23:10:32.932Z] | [INFO] | Se entró al apartado para crear el token
+[2026-04-13 23:10:40.578Z] | [INFO] | Se entró al apartado para verificar token
+[2026-04-13 23:10:40.586Z] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-13 23:10:46.390Z] | [INFO] | Se entró al apartado para verificar token
+[2026-04-13 23:10:46.394Z] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-13 23:10:46.408Z] | [INFO] | Se entró al apartado para conseguir un mensaje de error por parte del método getAll en el FactoryController
+[2026-04-13 23:10:46.413Z] | [WARN] | Uno de los filtros enviados no es válido para este recurso.
+[2026-04-13 23:10:46.409Z] | [DEBUG] | Valor de message: 
+Invalid `prisma.user.count()` invocation:
+
+{
+  select: {
+    _count: {
+      select: {
+        _all: true
+      }
+    }
+  },
+  where: {
+    si: 2,
+    ~~
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   id?: StringFilter | String,
+?   email?: StringFilter | String,
+?   password?: StringFilter | String,
+?   role?: EnumUserRoleFilter | UserRole,
+?   profiles?: ProfileListRelationFilter
+  }
+}
+
+Unknown argument `si`. Did you mean `OR`? Available options are marked with ?.
+[2026-04-13 23:13:06.581Z] | [INFO] | Se entró al apartado para verificar token
+[2026-04-13 23:13:06.585Z] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos
+[2026-04-13 23:13:06.589Z] | [INFO] | Se entró al apartado para conseguir un mensaje de error por parte del método getAll en el FactoryController
+[2026-04-13 23:13:06.590Z] | [WARN] | Uno de los filtros enviados tiene un tipo de dato distinto al esperado
+[2026-04-13 23:13:06.590Z] | [DEBUG] | Valor de message: 
+Invalid `prisma.user.count()` invocation:
+
+{
+  select: {
+    _count: {
+      select: {
+        _all: true
+      }
+    }
+  },
+  where: {
+    email: 123
+           ~~~
+  }
+}
+
+Argument `email`: Invalid value provided. Expected StringFilter or String, provided Int.
+[2026-04-13 23:13:32.228Z] | [INFO] | Se entró al apartado para verificar token
+[2026-04-13 23:13:32.239Z] | [INFO] | Se detectó el ingreso de un usuario en el middleware para validar permisos

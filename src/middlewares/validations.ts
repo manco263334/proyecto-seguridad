@@ -99,14 +99,12 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
     
                 const { data } = result;
     
-                const message = `'${fieldName}' = '${fieldFinder}'`;
-
                 if (shouldExists && !data) {
-                    return next({ statusCode: 400, message: `No se encontró ningún elemento que coincida con el campo especificado: ${message}` });
+                    return next({ statusCode: 400, message: `No se encontró ningún elemento que coincida con el campo especificado` });
                 } else if (shouldExists && Array.isArray(data) && data.length > limit) {
-                    return next({ statusCode: 400, message: `Ya existen varios elementos que cumplen con esta condición: ${message}` });
+                    return next({ statusCode: 400, message: `Ya existen varios elementos que cumplen con la condición` });
                 } else if (!shouldExists && data) {
-                    return next({ statusCode: 400, message: `Ya existe un elemento que cumple con esta condición: ${message}` });
+                    return next({ statusCode: 400, message: `Ya existe un elemento que cumple con la condición` });
                 }
             }
 
@@ -120,7 +118,6 @@ export default class ValidationMiddlewares<RepositoryType, Output> {
             LoggerClass.logger.info('Se detectó el ingreso de un usuario en el middleware para validar permisos');
 
             const user = req.session?.user;
-            LoggerClass.logger.debug(`Usuario detectado: ${user}`);
     
             if (!user){
                 LoggerClass.logger.warn('No se detectó un usuario, devolviendo error 401');
